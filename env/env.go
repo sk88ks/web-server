@@ -17,10 +17,10 @@ func init() {
 	env = &Environment{}
 
 	mySQL, err := mysql.NewDB(mysql.Config{
-		Host:     "host",
-		Database: "dbname",
-		User:     "user",
-		Password: "pass",
+		Host:     "localhost:3306",
+		Database: "test",
+		User:     "root",
+		Password: "",
 	})
 	if err != nil {
 		panic(err)

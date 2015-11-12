@@ -9,7 +9,7 @@ import (
 	"syscall"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/fvbock/endless"
+	//"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
 )
 
@@ -59,10 +59,8 @@ func main() {
 	// Gzip compression
 	// r.Use(middleware.Gzip(middleware.DefaultCompression))
 
-	// controller middleware to execute and
-	// send result to the client
-	//r.Use(controller())
+	router(r)
 
 	logrus.WithField("port", port).Info("Starting the server")
-	endless.ListenAndServe(":"+port, r)
+	http.ListenAndServe(":"+port, r)
 }
