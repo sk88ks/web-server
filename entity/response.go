@@ -1,4 +1,4 @@
-package body
+package entity
 
 // AliveRes is response for alive API
 type AliveRes struct {
@@ -7,11 +7,4 @@ type AliveRes struct {
 
 type Friend struct {
 	Fname string
-}
-
-type Person struct {
-	UserName   string
-	Emails     []string
-	Friends    []Friend
-	HasContent string
 }

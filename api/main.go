@@ -10,7 +10,7 @@ import (
 	"syscall"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/sk88ks/web-server/body"
+	"github.com/sk88ks/web-server/entity"
 	//"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
 )
@@ -29,20 +29,20 @@ func render(c *gin.Context, status int, file string, data interface{}) {
 
 // GetAlive return status
 func GetAlive(c *gin.Context) {
-	c.JSON(200, &body.AliveRes{
+	c.JSON(200, &entity.AliveRes{
 		OK: true,
 	})
 }
 
 // GetFriends is sample API
 func GetFriends(c *gin.Context) {
-	p := body.Person{
+	p := entity.Person{
 		UserName: "Kokubo",
 		Emails: []string{
 			"test@awa.fm",
 			"test@gmai.com",
 		},
-		Friends: []body.Friend{
+		Friends: []entity.Friend{
 			{
 				Fname: "Suzken",
 			},
@@ -53,7 +53,7 @@ func GetFriends(c *gin.Context) {
 		HasContent: "having",
 	}
 
-	render(c, 200, "sample.templ", p) //gin.H{"UserName": "Kokubo Shun"})
+	render(c, 200, "sample.templ", p)
 }
 
 func main() {
