@@ -34,6 +34,7 @@ func GetAlive(c *gin.Context) {
 	})
 }
 
+// GetFriends is sample API
 func GetFriends(c *gin.Context) {
 	p := body.Person{
 		UserName: "Kokubo",
@@ -49,13 +50,14 @@ func GetFriends(c *gin.Context) {
 				Fname: "Michinobu",
 			},
 		},
+		HasContent: "having",
 	}
 
 	render(c, 200, "sample.templ", p) //gin.H{"UserName": "Kokubo Shun"})
 }
 
 func main() {
-	flag.StringVar(&port, "-port", "3000", "Port number")
+	flag.StringVar(&port, "port", "3000", "Port number")
 	flag.Parse()
 
 	isProfiling := -1
@@ -97,6 +99,8 @@ func main() {
 	// r.Use(middleware.Gzip(middleware.DefaultCompression))
 
 	r.LoadHTMLGlob("templates/*")
+
+	r.Use(gin.Logger())
 
 	r.GET("/alive", GetAlive)
 

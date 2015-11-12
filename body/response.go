@@ -10,7 +10,8 @@ type Friend struct {
 }
 
 type Person struct {
-	UserName string
-	Emails   []string
-	Friends  []Friend
+	UserName   string
+	Emails     []string
+	Friends    []Friend
+	HasContent string
 }

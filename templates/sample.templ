@@ -3,13 +3,14 @@
 <h1>
     {{.UserName}}
     {{range .Emails}}
-        <li>an email {{.}}</li>
+        <li>an email {{. | html}}</li>
     {{end}}
     {{with .Friends}}
     {{range .}}
         <li>my friend name is {{.Fname}}</li>
     {{end}}
     {{end}}
+    {{if .HasContent}} CONTENT!!!{{end}}
 </h1>
 </body>
 </html>
