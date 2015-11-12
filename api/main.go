@@ -5,10 +5,12 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"path"
 	"runtime"
 	"syscall"
 
 	"github.com/Sirupsen/logrus"
+	"github.com/sk88ks/web-server/body"
 	//"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
 )
@@ -16,6 +18,41 @@ import (
 var (
 	port string
 )
+
+func getTemplatePath(file string) string {
+	return path.Join("templates", file)
+}
+
+func render(c *gin.Context, status int, file string, data interface{}) {
+	c.HTML(status, file, data)
+}
+
+// GetAlive return status
+func GetAlive(c *gin.Context) {
+	c.JSON(200, &body.AliveRes{
+		OK: true,
+	})
+}
+
+func GetFriends(c *gin.Context) {
+	p := body.Person{
+		UserName: "Kokubo",
+		Emails: []string{
+			"test@awa.fm",
+			"test@gmai.com",
+		},
+		Friends: []body.Friend{
+			{
+				Fname: "Suzken",
+			},
+			{
+				Fname: "Michinobu",
+			},
+		},
+	}
+
+	render(c, 200, "sample.templ", p) //gin.H{"UserName": "Kokubo Shun"})
+}
 
 func main() {
 	flag.StringVar(&port, "-port", "3000", "Port number")
@@ -59,7 +96,11 @@ func main() {
 	// Gzip compression
 	// r.Use(middleware.Gzip(middleware.DefaultCompression))
 
-	router(r)
+	r.LoadHTMLGlob("templates/*")
+
+	r.GET("/alive", GetAlive)
+
+	r.GET("/sample.html", GetFriends)
 
 	logrus.WithField("port", port).Info("Starting the server")
 	http.ListenAndServe(":"+port, r)

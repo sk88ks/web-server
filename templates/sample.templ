@@ -1,0 +1,15 @@
+<html>
+<body>
+<h1>
+    {{.UserName}}
+    {{range .Emails}}
+        <li>an email {{.}}</li>
+    {{end}}
+    {{with .Friends}}
+    {{range .}}
+        <li>my friend name is {{.Fname}}</li>
+    {{end}}
+    {{end}}
+</h1>
+</body>
+</html>
