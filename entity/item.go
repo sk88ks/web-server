@@ -5,7 +5,7 @@ type Item struct {
 	IttemID          string   `json:"itemId"`
 	ItemNo           int      `json:"itemNo"`
 	ItemSupplier     string   `json:"itemSupplier"`
-	ItemSoldQuantity int      `json:"itemSoldQuantitu"`
+	ItemSoldQuantity int      `json:"itemSoldQuantity"`
 	ItemSalePrice    int      `json:"itemSalePrice"`
 	ItemTags         []string `json:"itemTags"`
 	ItemImage        string   `json:"itemImage"`
