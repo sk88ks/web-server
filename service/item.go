@@ -105,6 +105,13 @@ func FindItemByPostID(postID, limit string) ([]entity.Item, error) {
 		return nil, err
 	}
 
+	itemIDs := make([]byte, 11*len(posts))
+	for i := range posts {
+		itemIDs = append(itemIDs, "'"...)
+		itemIDs = append(itemIDs, posts[i].PostUserID...)
+		itemIDs = append(itemIDs, "',"...)
+	}
+
 	itemIDMap := make(map[string]bool, len(posts))
 	for i := range posts {
 		if itemIDMap[posts[i].PostItemID] {
@@ -113,12 +120,7 @@ func FindItemByPostID(postID, limit string) ([]entity.Item, error) {
 		itemIDMap[posts[i].PostItemID] = true
 	}
 
-	var itemIDs string
-	for id := range itemIDMap {
-		itemIDs += `'` + id + `',`
-	}
-
-	q = "SELECT * FROM item WHERE id IN(" + itemIDs + ") ORDER BY userNo LIMIT " + limit
+	q = "SELECT * FROM item WHERE id IN(" + string(itemIDs) + ") ORDER BY userNo LIMIT " + limit
 	items, err := datastore.ItemQueryWithCache(q)
 	if err != nil {
 		return nil, err

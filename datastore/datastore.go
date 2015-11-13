@@ -84,6 +84,62 @@ func ItemQueryWithCache(query string) ([]entity.Item, error) {
 	return items, nil
 }
 
+func PostQueryForUserID(query string) ([]string, error) {
+	conn, err := env.GetMySQLConn()
+	if err != nil {
+		return nil, err
+	}
+	defer conn.Close()
+
+	fmt.Printf("Posts Query: %s\n", query)
+	rows, err := conn.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	userIDs := []string{}
+	for rows.Next() {
+		var userID string
+		err = rows.Scan(
+			&userID,
+		)
+		if err != nil {
+			return nil, err
+		}
+		userIDs = append(userIDs, userID)
+	}
+
+	return userIDs, nil
+}
+
+func PostQueryForItemID(query string) ([]string, error) {
+	conn, err := env.GetMySQLConn()
+	if err != nil {
+		return nil, err
+	}
+	defer conn.Close()
+
+	fmt.Printf("Posts Query: %s\n", query)
+	rows, err := conn.Query(query)
+	if err != nil {
+		return nil, err
+	}
+
+	itemIDs := []string{}
+	for rows.Next() {
+		var itemID string
+		err = rows.Scan(
+			&itemID,
+		)
+		if err != nil {
+			return nil, err
+		}
+		itemIDs = append(itemIDs, itemID)
+	}
+
+	return itemIDs, nil
+}
+
 // PostQueryWithCache is qury for user
 func PostQueryWithCache(query string) ([]entity.Post, error) {
 	// TODO use cache

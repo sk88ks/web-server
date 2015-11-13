@@ -90,8 +90,8 @@ func FindByPostID(postID, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	q := "SELECT * FROM post4 WHERE id = '" + postID + "'"
-	posts, err := datastore.PostQueryWithCache(q)
+	q := "SELECT postUserId FROM post4 WHERE id = '" + postID + "'"
+	posts, err := datastore.PostQueryForUserID(q)
 	if err != nil {
 		return nil, err
 	}
@@ -100,7 +100,7 @@ func FindByPostID(postID, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	q = "SELECT * FROM user WHERE id = '" + posts[0].PostUserID + "' ORDER BY userNo LIMIT " + limit
+	q = "SELECT * FROM user WHERE id = '" + posts[0] + "' ORDER BY userNo LIMIT " + limit
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -118,8 +118,8 @@ func FindByPostDateTimeGTE(unixtime, limit string) ([]entity.User, error) {
 		limit = "100"
 	}
 
-	q := "SELECT * FROM post4 WHERE postDateTime >= " + unixtime
-	posts, err := datastore.PostQueryWithCache(q)
+	q := "SELECT postUserId FROM post4 WHERE postDateTime >= " + unixtime
+	posts, err := datastore.PostQueryForUserID(q)
 	if err != nil {
 		return nil, err
 	}
@@ -131,7 +131,7 @@ func FindByPostDateTimeGTE(unixtime, limit string) ([]entity.User, error) {
 	userIDs := make([]byte, 11*len(posts))
 	for i := range posts {
 		userIDs = append(userIDs, "'"...)
-		userIDs = append(userIDs, posts[i].PostUserID...)
+		userIDs = append(userIDs, posts[i]...)
 		userIDs = append(userIDs, "',"...)
 	}
 
@@ -153,8 +153,8 @@ func FindByPostDateTimeLTE(unixtime, limit string) ([]entity.User, error) {
 		limit = "100"
 	}
 
-	q := "SELECT * FROM post4 WHERE postDateTime <= " + unixtime
-	posts, err := datastore.PostQueryWithCache(q)
+	q := "SELECT postUserId FROM post4 WHERE postDateTime <= " + unixtime
+	posts, err := datastore.PostQueryForUserID(q)
 	if err != nil {
 		return nil, err
 	}
@@ -178,7 +178,7 @@ func FindByPostDateTimeLTE(unixtime, limit string) ([]entity.User, error) {
 	userIDs := make([]byte, 11*len(posts))
 	for i := range posts {
 		userIDs = append(userIDs, "'"...)
-		userIDs = append(userIDs, posts[i].PostUserID...)
+		userIDs = append(userIDs, posts[i]...)
 		userIDs = append(userIDs, "',"...)
 	}
 
@@ -200,8 +200,8 @@ func FindByPostItemID(itemID, limit string) ([]entity.User, error) {
 		limit = "100"
 	}
 
-	q := "SELECT * FROM post4 WHERE postItemId = '" + itemID + "'"
-	posts, err := datastore.PostQueryWithCache(q)
+	q := "SELECT postUserId FROM post4 WHERE postItemId = '" + itemID + "'"
+	posts, err := datastore.PostQueryForUserID(q)
 	if err != nil {
 		return nil, err
 	}
@@ -226,7 +226,7 @@ func FindByPostItemID(itemID, limit string) ([]entity.User, error) {
 	userIDs := make([]byte, 11*len(posts))
 	for i := range posts {
 		userIDs = append(userIDs, "'"...)
-		userIDs = append(userIDs, posts[i].PostUserID...)
+		userIDs = append(userIDs, posts[i]...)
 		userIDs = append(userIDs, "',"...)
 	}
 
@@ -254,8 +254,8 @@ func FindByMaxPostItemScoreGTE(score, limit string) ([]entity.User, error) {
 	}
 	defer conn.Close()
 
-	q := `SELECT * FROM post4 WHERE postItemScore >= ` + score
-	posts, err := datastore.PostQueryWithCache(q)
+	q := `SELECT postUserId FROM post4 WHERE postItemScore >= ` + score
+	posts, err := datastore.PostQueryForUserID(q)
 	if err != nil {
 		return nil, err
 	}
@@ -280,7 +280,7 @@ func FindByMaxPostItemScoreGTE(score, limit string) ([]entity.User, error) {
 	userIDs := make([]byte, 11*len(posts))
 	for i := range posts {
 		userIDs = append(userIDs, "'"...)
-		userIDs = append(userIDs, posts[i].PostUserID...)
+		userIDs = append(userIDs, posts[i]...)
 		userIDs = append(userIDs, "',"...)
 	}
 
@@ -308,8 +308,8 @@ func FindByMinPostItemScoreLTE(score, limit string) ([]entity.User, error) {
 	}
 	defer conn.Close()
 
-	q := `SELECT * FROM post4 WHERE postItemScore <= ` + score
-	posts, err := datastore.PostQueryWithCache(q)
+	q := `SELECT postUserId FROM post4 WHERE postItemScore <= ` + score
+	posts, err := datastore.PostQueryForUserID(q)
 	if err != nil {
 		return nil, err
 	}
@@ -334,7 +334,7 @@ func FindByMinPostItemScoreLTE(score, limit string) ([]entity.User, error) {
 	userIDs := make([]byte, 11*len(posts))
 	for i := range posts {
 		userIDs = append(userIDs, "'"...)
-		userIDs = append(userIDs, posts[i].PostUserID...)
+		userIDs = append(userIDs, posts[i]...)
 		userIDs = append(userIDs, "',"...)
 	}
 
@@ -362,8 +362,8 @@ func FindByPostItemState(state, limit string) ([]entity.User, error) {
 	}
 	defer conn.Close()
 
-	q := `SELECT * FROM post4 WHERE postItemState = ` + state
-	posts, err := datastore.PostQueryWithCache(q)
+	q := `SELECT postUserId FROM post4 WHERE postItemState = ` + state
+	posts, err := datastore.PostQueryForUserID(q)
 	if err != nil {
 		return nil, err
 	}
@@ -388,7 +388,7 @@ func FindByPostItemState(state, limit string) ([]entity.User, error) {
 	userIDs := make([]byte, 11*len(posts))
 	for i := range posts {
 		userIDs = append(userIDs, "'"...)
-		userIDs = append(userIDs, posts[i].PostUserID...)
+		userIDs = append(userIDs, posts[i]...)
 		userIDs = append(userIDs, "',"...)
 	}
 
@@ -416,8 +416,8 @@ func FindByPostItemStateNotEQ(state, limit string) ([]entity.User, error) {
 	}
 	defer conn.Close()
 
-	q := `SELECT * FROM post4 WHERE postItemState <> ` + state
-	posts, err := datastore.PostQueryWithCache(q)
+	q := `SELECT postUserId FROM post4 WHERE postItemState <> ` + state
+	posts, err := datastore.PostQueryForUserID(q)
 	if err != nil {
 		return nil, err
 	}
@@ -442,7 +442,7 @@ func FindByPostItemStateNotEQ(state, limit string) ([]entity.User, error) {
 	userIDs := make([]byte, 11*len(posts))
 	for i := range posts {
 		userIDs = append(userIDs, "'"...)
-		userIDs = append(userIDs, posts[i].PostUserID...)
+		userIDs = append(userIDs, posts[i]...)
 		userIDs = append(userIDs, "',"...)
 	}
 
