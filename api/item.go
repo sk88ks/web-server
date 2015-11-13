@@ -18,6 +18,8 @@ var itemQueryStrings = []QueryFunc{
 	{Type: "findByPostId", Func: findItemByPostID},
 	{Type: "findByPostDateTimeGTE", Func: findItemByPostDateTimeGTE},
 	{Type: "findByPostDateTimeLTE", Func: findItemByPostDateTimeLTE},
+	{Type: "findByPostItemState", Func: dummyFunc},
+	{Type: "findByPostItemStateNotEQ", Func: dummyFunc},
 }
 
 func SearchItem(c *gin.Context) {
@@ -130,6 +132,32 @@ func findItemByPostDateTimeGTE(c *gin.Context, unixtime, limit string) {
 
 func findItemByPostDateTimeLTE(c *gin.Context, unixtime, limit string) {
 	items, err := service.FindItemByPostDateTimeLTE(unixtime, limit)
+	if err != nil {
+		c.JSON(500, nil)
+		return
+	}
+
+	c.JSON(200, entity.ItemRes{
+		Result: true,
+		Data:   items,
+	})
+}
+
+func findByPostItemState(c *gin.Context, state, limit string) {
+	items, err := service.FindItemByPostItemState(state, limit)
+	if err != nil {
+		c.JSON(500, nil)
+		return
+	}
+
+	c.JSON(200, entity.ItemRes{
+		Result: true,
+		Data:   items,
+	})
+}
+
+func findByPostItemStateNotEQ(c *gin.Context, state, limit string) {
+	items, err := service.FindItemByPostItemStateNotEQ(state, limit)
 	if err != nil {
 		c.JSON(500, nil)
 		return
