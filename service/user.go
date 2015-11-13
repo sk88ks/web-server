@@ -15,7 +15,7 @@ func FindByUserID(userID, limit string) ([]entity.User, error) {
 		limit = "100"
 	}
 
-	q := "SELECT * FROM user WHERE id = " + userID + " ORDER BY userNo LIMIT " + limit
+	q := "SELECT * FROM user WHERE id = '" + userID + "' ORDER BY userNo LIMIT " + limit
 
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
@@ -90,7 +90,7 @@ func FindByPostID(postID, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	q := "SELECT * FROM post WHERE postId = " + postID
+	q := "SELECT * FROM post WHERE postId = '" + postID + "'"
 	posts, err := datastore.PostQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -100,7 +100,7 @@ func FindByPostID(postID, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	q = "SELECT * FROM user WHERE id =" + posts[0].PostUserID + " ORDER BY userNo LIMIT " + limit
+	q = "SELECT * FROM user WHERE id = '" + posts[0].PostUserID + "' ORDER BY userNo LIMIT " + limit
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
 		return nil, err
