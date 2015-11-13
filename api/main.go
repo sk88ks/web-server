@@ -99,6 +99,8 @@ func main() {
 
 	r.GET("/searchPost")
 
+	r.GET("/user/:userId", UserPage)
+
 	logrus.WithField("port", port).Info("Starting the server")
 	http.ListenAndServe(":"+port, r)
 }

@@ -30,22 +30,15 @@ func SearchUser(c *gin.Context) {
 }
 
 func findByUserID(c *gin.Context, userID, limit string) {
-	users, err := service.FindByUserID(userID, limit)
+	user, err := service.FindByUserID(userID)
 	if err != nil {
 		c.JSON(500, nil)
 		return
 	}
 
-	if len(users) == 0 {
-		c.JSON(200, entity.UserRes{
-			Result: true,
-		})
-		return
-	}
-
 	c.JSON(200, entity.UserRes{
 		Result: true,
-		Data:   []entity.User{users[0]},
+		Data:   []entity.User{user},
 	})
 }
 

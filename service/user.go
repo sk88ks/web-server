@@ -6,23 +6,23 @@ import (
 	"github.com/sk88ks/web-server/env"
 )
 
-func FindByUserID(userID, limit string) ([]entity.User, error) {
+func FindByUserID(userID string) (user entity.User, err error) {
 	if userID == "" {
-		return nil, nil
+		return
 	}
 
-	if limit == "" {
-		limit = "100"
-	}
-
-	q := "SELECT * FROM user WHERE id = '" + userID + "' ORDER BY userNo LIMIT " + limit
+	q := "SELECT * FROM user WHERE id = '" + userID + "'"
 
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
-		return nil, err
+		return
 	}
 
-	return users, nil
+	if len(users) == 0 {
+		return
+	}
+
+	return users[0], nil
 }
 
 func FindByUserPublicScoreGTE(num, limit string) ([]entity.User, error) {
