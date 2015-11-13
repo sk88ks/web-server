@@ -115,6 +115,16 @@ func findByPostID(c *gin.Context, postID, limit string) {
 }
 
 func findByPostDateTimeGTE(c *gin.Context, unixtime, limit string) {
+	users, err := service.FindByPostDateTimeGTE(unixtime, limit)
+	if err != nil {
+		c.JSON(500, nil)
+		return
+	}
+
+	c.JSON(200, entity.UserRes{
+		Result: true,
+		Data:   []entity.User{users[0]},
+	})
 }
 
 func findByPostDateTimeLTE(c *gin.Context, unixtime, limit string) {

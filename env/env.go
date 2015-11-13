@@ -1,7 +1,7 @@
 package env
 
 import (
-	"github.com/awa/liverpool-server/mongodb"
+	"github.com/sk88ks/web-server/mongodb"
 	"github.com/sk88ks/web-server/mysql"
 )
 
