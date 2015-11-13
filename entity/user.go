@@ -7,11 +7,11 @@ type AliveRes struct {
 
 // User is data res
 type User struct {
-	UserID          string `json:"userId"`
-	UserNo          int    `json:"userNo"`
-	UserPublicScore int    `json:"userPublicScore"`
-	UserFriends     string `json:"userFriends"`
-	UserImage       string `json:"userImage"`
+	UserID          string   `json:"userId"`
+	UserNo          int      `json:"userNo"`
+	UserPublicScore int      `json:"userPublicScore"`
+	UserFriends     []string `json:"userFriends"`
+	UserImage       string   `json:"userImage"`
 }
 
 // UserRes is response

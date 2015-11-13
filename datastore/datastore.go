@@ -2,6 +2,7 @@ package datastore
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/sk88ks/web-server/entity"
 	"github.com/sk88ks/web-server/env"
@@ -26,16 +27,18 @@ func UserQueryWithCache(query string) ([]entity.User, error) {
 
 	for rows.Next() {
 		user := entity.User{}
+		var friends string
 		err = rows.Scan(
 			&user.UserID,
 			&user.UserNo,
 			&user.UserPublicScore,
-			&user.UserFriends,
+			&friends,
 			&user.UserImage,
 		)
 		if err != nil {
 			return nil, err
 		}
+		user.UserFriends = strings.Split(friends, ",")
 		users = append(users, user)
 	}
 
@@ -61,18 +64,20 @@ func ItemQueryWithCache(query string) ([]entity.Item, error) {
 
 	for rows.Next() {
 		item := entity.Item{}
+		var tags string
 		err = rows.Scan(
 			&item.IttemID,
 			&item.ItemNo,
 			&item.ItemSupplier,
 			&item.ItemSoldQuantity,
 			&item.ItemSalePrice,
-			&item.ItemTags,
+			&tags,
 			&item.ItemImage,
 		)
 		if err != nil {
 			return nil, err
 		}
+		item.ItemTags = strings.Split(tags, ",")
 		items = append(items, item)
 	}
 
@@ -98,6 +103,8 @@ func PostQueryWithCache(query string) ([]entity.Post, error) {
 
 	for rows.Next() {
 		post := entity.Post{}
+		var lusers string
+		var tags string
 		err = rows.Scan(
 			&post.PostID,
 			&post.PostDateTime,
@@ -105,12 +112,14 @@ func PostQueryWithCache(query string) ([]entity.Post, error) {
 			&post.PostItemID,
 			&post.PostItemScore,
 			&post.PostItemState,
-			&post.PossLikeUsers,
-			&post.PostTags,
+			&lusers,
+			&tags,
 		)
 		if err != nil {
 			return nil, err
 		}
+		post.PostTags = strings.Split(tags, ",")
+		post.PostLikeUsers = strings.Split(lusers, ",")
 		posts = append(posts, post)
 	}
 
