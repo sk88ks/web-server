@@ -18,7 +18,7 @@ func init() {
 
 	mySQL, err := mysql.NewDB(mysql.Config{
 		Host:     "localhost:3306",
-		Database: "test",
+		Database: "totec",
 		User:     "root",
 		Password: "",
 	})
