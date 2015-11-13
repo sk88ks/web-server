@@ -1,6 +1,8 @@
 package datastore
 
 import (
+	"fmt"
+
 	"github.com/sk88ks/web-server/entity"
 	"github.com/sk88ks/web-server/env"
 )
@@ -16,6 +18,7 @@ func UserQueryWithCache(query string) ([]entity.User, error) {
 	defer conn.Close()
 
 	users := []entity.User{}
+	fmt.Printf("User Query: %s\n", query)
 	rows, err := conn.Query(query)
 	if err != nil {
 		return nil, err
@@ -50,6 +53,7 @@ func ItemQueryWithCache(query string) ([]entity.Item, error) {
 	defer conn.Close()
 
 	items := []entity.Item{}
+	fmt.Printf("Item Query: %s\n", query)
 	rows, err := conn.Query(query)
 	if err != nil {
 		return nil, err
@@ -86,6 +90,7 @@ func PostQueryWithCache(query string) ([]entity.Post, error) {
 	defer conn.Close()
 
 	posts := []entity.Post{}
+	fmt.Printf("Posts Query: %s\n", query)
 	rows, err := conn.Query(query)
 	if err != nil {
 		return nil, err
