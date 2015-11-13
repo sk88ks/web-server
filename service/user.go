@@ -90,7 +90,7 @@ func FindByPostID(postID, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	q := "SELECT * FROM post WHERE id = '" + postID + "'"
+	q := "SELECT * FROM post4 WHERE id = '" + postID + "'"
 	posts, err := datastore.PostQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -118,7 +118,7 @@ func FindByPostDateTimeGTE(unixtime, limit string) ([]entity.User, error) {
 		limit = "100"
 	}
 
-	q := "SELECT * FROM post WHERE postDateTime >= " + unixtime
+	q := "SELECT * FROM post4 WHERE postDateTime >= " + unixtime
 	posts, err := datastore.PostQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -159,7 +159,7 @@ func FindByPostDateTimeLTE(unixtime, limit string) ([]entity.User, error) {
 		limit = "100"
 	}
 
-	q := "SELECT * FROM post WHERE postDateTime <= " + unixtime
+	q := "SELECT * FROM post4 WHERE postDateTime <= " + unixtime
 	posts, err := datastore.PostQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -200,7 +200,7 @@ func FindByPostItemID(itemID, limit string) ([]entity.User, error) {
 		limit = "100"
 	}
 
-	q := "SELECT * FROM post WHERE postItemId = '" + itemID + "'"
+	q := "SELECT * FROM post4 WHERE postItemId = '" + itemID + "'"
 	posts, err := datastore.PostQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -247,7 +247,7 @@ func FindByMaxPostItemScoreGTE(score, limit string) ([]entity.User, error) {
 	}
 	defer conn.Close()
 
-	q := `SELECT * FROM post WHERE postItemScore >= ` + score
+	q := `SELECT * FROM post4 WHERE postItemScore >= ` + score
 	posts, err := datastore.PostQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -294,7 +294,7 @@ func FindByMinPostItemScoreLTE(score, limit string) ([]entity.User, error) {
 	}
 	defer conn.Close()
 
-	q := `SELECT * FROM post WHERE postItemScore <= ` + score
+	q := `SELECT * FROM post4 WHERE postItemScore <= ` + score
 	posts, err := datastore.PostQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -341,7 +341,7 @@ func FindByPostItemState(state, limit string) ([]entity.User, error) {
 	}
 	defer conn.Close()
 
-	q := `SELECT * FROM post WHERE postItemState = ` + state
+	q := `SELECT * FROM post4 WHERE postItemState = ` + state
 	posts, err := datastore.PostQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -388,7 +388,7 @@ func FindByPostItemStateNotEQ(state, limit string) ([]entity.User, error) {
 	}
 	defer conn.Close()
 
-	q := `SELECT * FROM post WHERE postItemState <> ` + state
+	q := `SELECT * FROM post4 WHERE postItemState <> ` + state
 	posts, err := datastore.PostQueryWithCache(q)
 	if err != nil {
 		return nil, err

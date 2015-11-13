@@ -18,6 +18,10 @@ var (
 	port string
 )
 
+var dummyFunc = func(c *gin.Context, userID, limit string) {
+	c.JSON(200, nil)
+}
+
 // QueryFunc is mapping for controller
 type QueryFunc struct {
 	Type string

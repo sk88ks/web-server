@@ -7,23 +7,25 @@ import (
 )
 
 var itemQueryStrings = []QueryFunc{
-	{Type: "findByItemId", Func: findByItemID},
-	{Type: "findByItemSupplier", Func: findBySupplier},
-	{Type: "findByItemSoldQuantityGTE", Func: findByItemSoldQuantityGTE},
-	{Type: "findByItemSoldQuantityLTE", Func: findByItemSoldQuantityLTE},
-	{Type: "findByItemSalePriceGTE", Func: findByItemSalePriceGTE},
-	{Type: "findByItemSalePriceLTE", Func: findByItemSalePriceLTE},
-	{Type: "findByItemTagsIncludeAll", Func: nil},
-	{Type: "findByItemTagsIncludeAny", Func: nil},
-	{Type: "findByPostId", Func: nil},
+	{Type: "findByItemId", Func: findItemByItemID},
+	{Type: "findByItemSupplier", Func: findItemBySupplier},
+	{Type: "findByItemSoldQuantityGTE", Func: findItemByItemSoldQuantityGTE},
+	{Type: "findByItemSoldQuantityLTE", Func: findItemByItemSoldQuantityLTE},
+	{Type: "findByItemSalePriceGTE", Func: findItemByItemSalePriceGTE},
+	{Type: "findByItemSalePriceLTE", Func: findItemByItemSalePriceLTE},
+	{Type: "findByItemTagsIncludeAll", Func: dummyFunc},
+	{Type: "findByItemTagsIncludeAny", Func: dummyFunc},
+	{Type: "findByPostId", Func: findItemByPostID},
+	{Type: "findByPostDateTimeGTE", Func: nil},
+	{Type: "findByPostDateTimeLTE", Func: nil},
 }
 
 func SearchItem(c *gin.Context) {
 	execFunc(c, itemQueryStrings)
 }
 
-func findByItemID(c *gin.Context, itemID, limit string) {
-	item, err := service.FindByItemID(itemID)
+func findItemByItemID(c *gin.Context, itemID, limit string) {
+	item, err := service.FindItemByItemID(itemID)
 	if err != nil {
 		c.JSON(500, nil)
 		return
@@ -35,8 +37,8 @@ func findByItemID(c *gin.Context, itemID, limit string) {
 	})
 }
 
-func findBySupplier(c *gin.Context, supplier, limit string) {
-	items, err := service.FindBySupplier(supplier, limit)
+func findItemBySupplier(c *gin.Context, supplier, limit string) {
+	items, err := service.FindItemBySupplier(supplier, limit)
 	if err != nil {
 		c.JSON(500, nil)
 		return
@@ -48,8 +50,8 @@ func findBySupplier(c *gin.Context, supplier, limit string) {
 	})
 }
 
-func findByItemSoldQuantityGTE(c *gin.Context, quantity, limit string) {
-	items, err := service.FindByItemSoldQuantityGTE(quantity, limit)
+func findItemByItemSoldQuantityGTE(c *gin.Context, quantity, limit string) {
+	items, err := service.FindItemByItemSoldQuantityGTE(quantity, limit)
 	if err != nil {
 		c.JSON(500, nil)
 		return
@@ -61,8 +63,8 @@ func findByItemSoldQuantityGTE(c *gin.Context, quantity, limit string) {
 	})
 }
 
-func findByItemSoldQuantityLTE(c *gin.Context, quantity, limit string) {
-	items, err := service.FindByItemSoldQuantityLTE(quantity, limit)
+func findItemByItemSoldQuantityLTE(c *gin.Context, quantity, limit string) {
+	items, err := service.FindItemByItemSoldQuantityLTE(quantity, limit)
 	if err != nil {
 		c.JSON(500, nil)
 		return
@@ -74,8 +76,8 @@ func findByItemSoldQuantityLTE(c *gin.Context, quantity, limit string) {
 	})
 }
 
-func findByItemSalePriceGTE(c *gin.Context, price, limit string) {
-	items, err := service.FindByItemSalePriceGTE(price, limit)
+func findItemByItemSalePriceGTE(c *gin.Context, price, limit string) {
+	items, err := service.FindItemByItemSalePriceGTE(price, limit)
 	if err != nil {
 		c.JSON(500, nil)
 		return
@@ -87,8 +89,8 @@ func findByItemSalePriceGTE(c *gin.Context, price, limit string) {
 	})
 }
 
-func findByItemSalePriceLTE(c *gin.Context, price, limit string) {
-	items, err := service.FindByItemSalePriceLTE(price, limit)
+func findItemByItemSalePriceLTE(c *gin.Context, price, limit string) {
+	items, err := service.FindItemByItemSalePriceLTE(price, limit)
 	if err != nil {
 		c.JSON(500, nil)
 		return
@@ -100,6 +102,15 @@ func findByItemSalePriceLTE(c *gin.Context, price, limit string) {
 	})
 }
 
-func findByPostID(c *gin.Context, postID, limit string) {
+func findItemByPostID(c *gin.Context, postID, limit string) {
+	items, err := service.FindItemByPostID(postID, limit)
+	if err != nil {
+		c.JSON(500, nil)
+		return
+	}
 
+	c.JSON(200, entity.ItemRes{
+		Result: true,
+		Data:   items,
+	})
 }

@@ -5,7 +5,7 @@ import (
 	"github.com/sk88ks/web-server/entity"
 )
 
-func FindByItemID(itemID string) (item entity.Item, err error) {
+func FindItemByItemID(itemID string) (item entity.Item, err error) {
 	if itemID == "" {
 		return
 	}
@@ -24,7 +24,7 @@ func FindByItemID(itemID string) (item entity.Item, err error) {
 	return items[0], nil
 }
 
-func FindBySupplier(supplier, limit string) ([]entity.Item, error) {
+func FindItemBySupplier(supplier, limit string) ([]entity.Item, error) {
 	if limit == "" {
 		limit = "100"
 	}
@@ -38,7 +38,7 @@ func FindBySupplier(supplier, limit string) ([]entity.Item, error) {
 	return items, nil
 }
 
-func FindByItemSoldQuantityGTE(quantity, limit string) ([]entity.Item, error) {
+func FindItemByItemSoldQuantityGTE(quantity, limit string) ([]entity.Item, error) {
 	if limit == "" {
 		limit = "100"
 	}
@@ -52,7 +52,7 @@ func FindByItemSoldQuantityGTE(quantity, limit string) ([]entity.Item, error) {
 	return items, nil
 }
 
-func FindByItemSoldQuantityLTE(quantity, limit string) ([]entity.Item, error) {
+func FindItemByItemSoldQuantityLTE(quantity, limit string) ([]entity.Item, error) {
 	if limit == "" {
 		limit = "100"
 	}
@@ -66,7 +66,7 @@ func FindByItemSoldQuantityLTE(quantity, limit string) ([]entity.Item, error) {
 	return items, nil
 }
 
-func FindByItemSalePriceGTE(price, limit string) ([]entity.Item, error) {
+func FindItemByItemSalePriceGTE(price, limit string) ([]entity.Item, error) {
 	if limit == "" {
 		limit = "100"
 	}
@@ -80,7 +80,7 @@ func FindByItemSalePriceGTE(price, limit string) ([]entity.Item, error) {
 	return items, nil
 }
 
-func FindByItemSalePriceLTE(price, limit string) ([]entity.Item, error) {
+func FindItemByItemSalePriceLTE(price, limit string) ([]entity.Item, error) {
 	if limit == "" {
 		limit = "100"
 	}
@@ -94,6 +94,77 @@ func FindByItemSalePriceLTE(price, limit string) ([]entity.Item, error) {
 	return items, nil
 }
 
-//func findByPostID(postID, limit string) ([]entity.Item, error) {
+func FindItemByPostID(postID, limit string) ([]entity.Item, error) {
+	if limit == "" {
+		limit = "100"
+	}
+
+	q := "SELECT * FROM post4 WHERE id = '" + postID + "'"
+	posts, err := datastore.PostQueryWithCache(q)
+	if err != nil {
+		return nil, err
+	}
+
+	itemIDMap := make(map[string]bool, len(posts))
+	for i := range posts {
+		if itemIDMap[posts[i].PostItemID] {
+			continue
+		}
+		itemIDMap[posts[i].PostItemID] = true
+	}
+
+	var itemIDs string
+	for id := range itemIDMap {
+		itemIDs += `'` + id + `',`
+	}
+
+	q = "SELECT * FROM item WHERE id IN(" + itemIDs + ") ORDER BY userNo LIMIT " + limit
+	items, err := datastore.ItemQueryWithCache(q)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(items) == 0 {
+		return nil, nil
+	}
+
+	return items, nil
+}
+
+//func FindByPostDateTimeGTE(unixtime, limit string) ([]entity.Item, error) {
+//	if limit == "" {
+//		limit = "100"
+//	}
+//
+//	q := "SELECT * FROM post WHERE id = '" + postID + "'"
+//	posts, err := datastore.PostQueryWithCache(q)
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	itemIDMap := make(map[string]bool, len(posts))
+//	for i := range posts {
+//		if itemIDMap[posts[i].PostItemID] {
+//			continue
+//		}
+//		itemIDMap[posts[i].PostItemID] = true
+//	}
+//
+//	var itemIDs string
+//	for id := range itemIDMap {
+//		itemIDs += `'` + id + `',`
+//	}
+//
+//	q = "SELECT * FROM item WHERE id IN(" + itemIDs + ") ORDER BY userNo LIMIT " + limit
+//	items, err := datastore.ItemQueryWithCache(q)
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	if len(items) == 0 {
+//		return nil, nil
+//	}
+//
+//	return items, nil
 //
 //}
