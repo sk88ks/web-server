@@ -18,10 +18,10 @@ var userQueryStrings = []QueryFunc{
 	{Type: "findByPostDateTimeGTE", Func: findByPostDateTimeGTE},
 	{Type: "findByPostDateTimeLTE", Func: findByPostDateTimeLTE},
 	{Type: "findByPostItemId", Func: findByPostItemID},
-	{Type: "findByMaxPostItemScoreGTE", Func: nil},
-	{Type: "findByMinPostItemScoreLTE", Func: nil},
-	{Type: "findByPostItemState", Func: nil},
-	{Type: "findByPostItemStateNotEQ", Func: nil},
+	{Type: "findByMaxPostItemScoreGTE", Func: findByMaxPostItemScoreGTE},
+	{Type: "findByMinPostItemScoreLTE", Func: findByMinPostItemScoreLTE},
+	{Type: "findByPostItemState", Func: findByPostItemState},
+	{Type: "findByPostItemStateNotEQ", Func: findByPostItemStateNotEQ},
 }
 
 // SearchUser is for user API
@@ -154,5 +154,53 @@ func findByPostItemID(c *gin.Context, itemID, limit string) {
 }
 
 func findByMaxPostItemScoreGTE(c *gin.Context, score, limit string) {
+	users, err := service.FindByMaxPostItemScoreGTE(score, limit)
+	if err != nil {
+		c.JSON(500, nil)
+		return
+	}
 
+	c.JSON(200, entity.UserRes{
+		Result: true,
+		Data:   users,
+	})
+}
+
+func findByMinPostItemScoreLTE(c *gin.Context, score, limit string) {
+	users, err := service.FindByMinPostItemScoreLTE(score, limit)
+	if err != nil {
+		c.JSON(500, nil)
+		return
+	}
+
+	c.JSON(200, entity.UserRes{
+		Result: true,
+		Data:   users,
+	})
+}
+
+func findByPostItemState(c *gin.Context, state string, limit string) {
+	users, err := service.FindByPostItemState(state, limit)
+	if err != nil {
+		c.JSON(500, nil)
+		return
+	}
+
+	c.JSON(200, entity.UserRes{
+		Result: true,
+		Data:   users,
+	})
+}
+
+func findByPostItemStateNotEQ(c *gin.Context, state string, limit string) {
+	users, err := service.FindByPostItemStateNotEQ(state, limit)
+	if err != nil {
+		c.JSON(500, nil)
+		return
+	}
+
+	c.JSON(200, entity.UserRes{
+		Result: true,
+		Data:   users,
+	})
 }
