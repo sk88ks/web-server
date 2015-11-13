@@ -16,8 +16,8 @@ var itemQueryStrings = []QueryFunc{
 	{Type: "findByItemTagsIncludeAll", Func: dummyFunc},
 	{Type: "findByItemTagsIncludeAny", Func: dummyFunc},
 	{Type: "findByPostId", Func: findItemByPostID},
-	{Type: "findByPostDateTimeGTE", Func: nil},
-	{Type: "findByPostDateTimeLTE", Func: nil},
+	{Type: "findByPostDateTimeGTE", Func: dummyFunc},
+	{Type: "findByPostDateTimeLTE", Func: dummyFunc},
 }
 
 func SearchItem(c *gin.Context) {
