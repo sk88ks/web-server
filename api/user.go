@@ -110,7 +110,7 @@ func findByPostID(c *gin.Context, postID, limit string) {
 
 	c.JSON(200, entity.UserRes{
 		Result: true,
-		Data:   []entity.User{users[0]},
+		Data:   users,
 	})
 }
 
@@ -123,9 +123,19 @@ func findByPostDateTimeGTE(c *gin.Context, unixtime, limit string) {
 
 	c.JSON(200, entity.UserRes{
 		Result: true,
-		Data:   []entity.User{users[0]},
+		Data:   users,
 	})
 }
 
 func findByPostDateTimeLTE(c *gin.Context, unixtime, limit string) {
+	users, err := service.FindByPostDateTimeLTE(unixtime, limit)
+	if err != nil {
+		c.JSON(500, nil)
+		return
+	}
+
+	c.JSON(200, entity.UserRes{
+		Result: true,
+		Data:   users,
+	})
 }
