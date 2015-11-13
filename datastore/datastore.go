@@ -56,7 +56,6 @@ func ItemQueryWithCache(query string) ([]entity.Item, error) {
 	defer conn.Close()
 
 	items := []entity.Item{}
-	fmt.Printf("Item Query: %s\n", query)
 	rows, err := conn.Query(query)
 	if err != nil {
 		return nil, err
