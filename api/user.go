@@ -7,21 +7,21 @@ import (
 )
 
 var userQueryStrings = []QueryFunc{
-	{Type: "findByUserId", Func: findByUserID},
-	{Type: "findByUserPublicScoreGTE", Func: findByUserPublicScoreGTE},
-	{Type: "findByUserPublicScoreLTE", Func: findByUserPublicScoreLTE},
-	{Type: "findByUserFriendsNumberGTE", Func: findByUserFriendsNumberGTE},
-	{Type: "findByUserFriendsNumberLTE", Func: findByUserFriendsNumberLTE},
+	{Type: "findByUserId", Func: findUserByUserID},
+	{Type: "findByUserPublicScoreGTE", Func: findUserByUserPublicScoreGTE},
+	{Type: "findByUserPublicScoreLTE", Func: findUserByUserPublicScoreLTE},
+	{Type: "findByUserFriendsNumberGTE", Func: findUserByUserFriendsNumberGTE},
+	{Type: "findByUserFriendsNumberLTE", Func: findUserByUserFriendsNumberLTE},
 	{Type: "findByUserFriendsIncludeUserIds", Func: nil},
 	{Type: "findByUserFriendsNotIncludeUserIds", Func: nil},
-	{Type: "findByPostId", Func: findByPostID},
-	{Type: "findByPostDateTimeGTE", Func: findByPostDateTimeGTE},
-	{Type: "findByPostDateTimeLTE", Func: findByPostDateTimeLTE},
-	{Type: "findByPostItemId", Func: findByPostItemID},
-	{Type: "findByMaxPostItemScoreGTE", Func: findByMaxPostItemScoreGTE},
-	{Type: "findByMinPostItemScoreLTE", Func: findByMinPostItemScoreLTE},
-	{Type: "findByPostItemState", Func: findByPostItemState},
-	{Type: "findByPostItemStateNotEQ", Func: findByPostItemStateNotEQ},
+	{Type: "findByPostId", Func: findUserByPostID},
+	{Type: "findByPostDateTimeGTE", Func: findUserByPostDateTimeGTE},
+	{Type: "findByPostDateTimeLTE", Func: findUserByPostDateTimeLTE},
+	{Type: "findByPostItemId", Func: findUserByPostItemID},
+	{Type: "findByMaxPostItemScoreGTE", Func: findUserByMaxPostItemScoreGTE},
+	{Type: "findByMinPostItemScoreLTE", Func: findUserByMinPostItemScoreLTE},
+	{Type: "findByPostItemState", Func: findUserByPostItemState},
+	{Type: "findByPostItemStateNotEQ", Func: findUserByPostItemStateNotEQ},
 }
 
 // SearchUser is for user API
@@ -29,7 +29,7 @@ func SearchUser(c *gin.Context) {
 	execFunc(c, userQueryStrings)
 }
 
-func findByUserID(c *gin.Context, userID, limit string) {
+func findUserByUserID(c *gin.Context, userID, limit string) {
 	user, err := service.FindByUserID(userID)
 	if err != nil {
 		c.JSON(500, nil)
@@ -42,7 +42,7 @@ func findByUserID(c *gin.Context, userID, limit string) {
 	})
 }
 
-func findByUserPublicScoreGTE(c *gin.Context, num, limit string) {
+func findUserByUserPublicScoreGTE(c *gin.Context, num, limit string) {
 	users, err := service.FindByUserPublicScoreGTE(num, limit)
 	if err != nil {
 		c.JSON(500, nil)
@@ -55,7 +55,7 @@ func findByUserPublicScoreGTE(c *gin.Context, num, limit string) {
 	})
 }
 
-func findByUserPublicScoreLTE(c *gin.Context, num, limit string) {
+func findUserByUserPublicScoreLTE(c *gin.Context, num, limit string) {
 	users, err := service.FindByUserPublicScoreLTE(num, limit)
 	if err != nil {
 		c.JSON(500, nil)
@@ -68,7 +68,7 @@ func findByUserPublicScoreLTE(c *gin.Context, num, limit string) {
 	})
 }
 
-func findByUserFriendsNumberGTE(c *gin.Context, num, limit string) {
+func findUserByUserFriendsNumberGTE(c *gin.Context, num, limit string) {
 	users, err := service.FindByUserFriendsNumberGTE(num, limit)
 	if err != nil {
 		c.JSON(500, nil)
@@ -81,7 +81,7 @@ func findByUserFriendsNumberGTE(c *gin.Context, num, limit string) {
 	})
 }
 
-func findByUserFriendsNumberLTE(c *gin.Context, num, limit string) {
+func findUserByUserFriendsNumberLTE(c *gin.Context, num, limit string) {
 	users, err := service.FindByUserFriendsNumberLTE(num, limit)
 	if err != nil {
 		c.JSON(500, nil)
@@ -94,7 +94,7 @@ func findByUserFriendsNumberLTE(c *gin.Context, num, limit string) {
 	})
 }
 
-func findByPostID(c *gin.Context, postID, limit string) {
+func findUserByPostID(c *gin.Context, postID, limit string) {
 	users, err := service.FindByPostID(postID, limit)
 	if err != nil {
 		c.JSON(500, nil)
@@ -107,7 +107,7 @@ func findByPostID(c *gin.Context, postID, limit string) {
 	})
 }
 
-func findByPostDateTimeGTE(c *gin.Context, unixtime, limit string) {
+func findUserByPostDateTimeGTE(c *gin.Context, unixtime, limit string) {
 	users, err := service.FindByPostDateTimeGTE(unixtime, limit)
 	if err != nil {
 		c.JSON(500, nil)
@@ -120,7 +120,7 @@ func findByPostDateTimeGTE(c *gin.Context, unixtime, limit string) {
 	})
 }
 
-func findByPostDateTimeLTE(c *gin.Context, unixtime, limit string) {
+func findUserByPostDateTimeLTE(c *gin.Context, unixtime, limit string) {
 	users, err := service.FindByPostDateTimeLTE(unixtime, limit)
 	if err != nil {
 		c.JSON(500, nil)
@@ -133,7 +133,7 @@ func findByPostDateTimeLTE(c *gin.Context, unixtime, limit string) {
 	})
 }
 
-func findByPostItemID(c *gin.Context, itemID, limit string) {
+func findUserByPostItemID(c *gin.Context, itemID, limit string) {
 	users, err := service.FindByPostItemID(itemID, limit)
 	if err != nil {
 		c.JSON(500, nil)
@@ -146,7 +146,7 @@ func findByPostItemID(c *gin.Context, itemID, limit string) {
 	})
 }
 
-func findByMaxPostItemScoreGTE(c *gin.Context, score, limit string) {
+func findUserByMaxPostItemScoreGTE(c *gin.Context, score, limit string) {
 	users, err := service.FindByMaxPostItemScoreGTE(score, limit)
 	if err != nil {
 		c.JSON(500, nil)
@@ -159,7 +159,7 @@ func findByMaxPostItemScoreGTE(c *gin.Context, score, limit string) {
 	})
 }
 
-func findByMinPostItemScoreLTE(c *gin.Context, score, limit string) {
+func findUserByMinPostItemScoreLTE(c *gin.Context, score, limit string) {
 	users, err := service.FindByMinPostItemScoreLTE(score, limit)
 	if err != nil {
 		c.JSON(500, nil)
@@ -172,7 +172,7 @@ func findByMinPostItemScoreLTE(c *gin.Context, score, limit string) {
 	})
 }
 
-func findByPostItemState(c *gin.Context, state string, limit string) {
+func findUserByPostItemState(c *gin.Context, state string, limit string) {
 	users, err := service.FindByPostItemState(state, limit)
 	if err != nil {
 		c.JSON(500, nil)
@@ -185,7 +185,7 @@ func findByPostItemState(c *gin.Context, state string, limit string) {
 	})
 }
 
-func findByPostItemStateNotEQ(c *gin.Context, state string, limit string) {
+func findUserByPostItemStateNotEQ(c *gin.Context, state string, limit string) {
 	users, err := service.FindByPostItemStateNotEQ(state, limit)
 	if err != nil {
 		c.JSON(500, nil)

@@ -90,7 +90,7 @@ func FindByPostID(postID, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	q := "SELECT * FROM post WHERE postId = '" + postID + "'"
+	q := "SELECT * FROM post WHERE id = '" + postID + "'"
 	posts, err := datastore.PostQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -118,7 +118,7 @@ func FindByPostDateTimeGTE(unixtime, limit string) ([]entity.User, error) {
 		limit = "100"
 	}
 
-	q := "SELECT * FROM post WHERE postDatetime >= " + unixtime
+	q := "SELECT * FROM post WHERE postDateTime >= " + unixtime
 	posts, err := datastore.PostQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -159,7 +159,7 @@ func FindByPostDateTimeLTE(unixtime, limit string) ([]entity.User, error) {
 		limit = "100"
 	}
 
-	q := "SELECT * FROM post WHERE postDatetime <= " + unixtime
+	q := "SELECT * FROM post WHERE postDateTime <= " + unixtime
 	posts, err := datastore.PostQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -200,7 +200,7 @@ func FindByPostItemID(itemID, limit string) ([]entity.User, error) {
 		limit = "100"
 	}
 
-	q := "SELECT * FROM post WHERE postItemId = " + itemID
+	q := "SELECT * FROM post WHERE postItemId = '" + itemID + "'"
 	posts, err := datastore.PostQueryWithCache(q)
 	if err != nil {
 		return nil, err

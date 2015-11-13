@@ -95,7 +95,7 @@ func main() {
 	// FOR PRD
 	r.GET("/searchUser", SearchUser)
 
-	r.GET("/searchItem")
+	r.GET("/searchItem", SearchItem)
 
 	r.GET("/searchPost")
 
