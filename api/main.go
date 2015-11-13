@@ -18,6 +18,22 @@ var (
 	port string
 )
 
+// QueryFunc is mapping for controller
+type QueryFunc struct {
+	Type string
+	Func func(c *gin.Context, param, limit string)
+}
+
+func execFunc(c *gin.Context, qfs []QueryFunc) {
+	for i := range qfs {
+		if q := c.Query(qfs[i].Type); q != "" {
+			qfs[i].Func(c, q, c.Query("limit"))
+			return
+		}
+	}
+	return
+}
+
 func getTemplatePath(file string) string {
 	return path.Join("templates", file)
 }
@@ -75,6 +91,13 @@ func main() {
 	r.GET("/alive", GetAlive)
 
 	r.GET("/sample.html", GetFriends)
+
+	// FOR PRD
+	r.GET("/searchUser", SearchUser)
+
+	r.GET("/searchItem")
+
+	r.GET("/searchPost")
 
 	logrus.WithField("port", port).Info("Starting the server")
 	http.ListenAndServe(":"+port, r)

@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/Sirupsen/logrus"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 const (
