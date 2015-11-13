@@ -177,3 +177,51 @@ func FindByPostDateTimeLTE(unixtime, limit string) ([]entity.User, error) {
 
 	return users, nil
 }
+
+func FindByPostItemID(itemID, limit string) ([]entity.User, error) {
+	if limit == "" {
+		limit = "100"
+	}
+
+	q := "SELECT * FROM post WHERE postItemId = " + itemID
+	posts, err := datastore.PostQueryWithCache(q)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(posts) == 0 {
+		return nil, nil
+	}
+
+	var userIDs string
+	for i := range posts {
+		userIDs += `'` + posts[i].PostUserID + `',`
+	}
+
+	q = "SELECT * FROM user WHERE id IN(" + userIDs + ") ORDER BY userNo LIMIT " + limit
+	users, err := datastore.UserQueryWithCache(q)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(users) == 0 {
+		return nil, nil
+	}
+
+	return users, nil
+}
+
+func findByMaxPostItemScoreGTE(score, limit string) {
+	//	if limit == "" {
+	//		limit = "100"
+	//	}
+	//
+	//	// TODO cache
+	//	`SELECT postUserId, MAX(postItemScore) AS score FROM post GROUP BY postUserId`
+	//	q := "SELECT  FROM post WHERE  = " + itemID
+	//	posts, err := datastore.PostQueryWithCache(q)
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//
+}

@@ -14,10 +14,10 @@ var userQueryStrings = []QueryFunc{
 	{Type: "findByUserFriendsNumberLTE", Func: findByUserFriendsNumberLTE},
 	{Type: "findByUserFriendsIncludeUserIds", Func: nil},
 	{Type: "findByUserFriendsNotIncludeUserIds", Func: nil},
-	{Type: "findByPostId", Func: nil},
-	{Type: "findByPostDateTimeGTE", Func: nil},
-	{Type: "findByPostDateTimeLTE", Func: nil},
-	{Type: "findByPostItemId", Func: nil},
+	{Type: "findByPostId", Func: findByPostID},
+	{Type: "findByPostDateTimeGTE", Func: findByPostDateTimeGTE},
+	{Type: "findByPostDateTimeLTE", Func: findByPostDateTimeLTE},
+	{Type: "findByPostItemId", Func: findByPostItemID},
 	{Type: "findByMaxPostItemScoreGTE", Func: nil},
 	{Type: "findByMinPostItemScoreLTE", Func: nil},
 	{Type: "findByPostItemState", Func: nil},
@@ -138,4 +138,21 @@ func findByPostDateTimeLTE(c *gin.Context, unixtime, limit string) {
 		Result: true,
 		Data:   users,
 	})
+}
+
+func findByPostItemID(c *gin.Context, itemID, limit string) {
+	users, err := service.FindByPostItemID(itemID, limit)
+	if err != nil {
+		c.JSON(500, nil)
+		return
+	}
+
+	c.JSON(200, entity.UserRes{
+		Result: true,
+		Data:   users,
+	})
+}
+
+func findByMaxPostItemScoreGTE(c *gin.Context, score, limit string) {
+
 }
