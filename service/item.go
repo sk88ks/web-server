@@ -105,10 +105,18 @@ func FindItemByPostID(postID, limit string) ([]entity.Item, error) {
 		return nil, err
 	}
 
-	itemIDs := make([]byte, 11*len(posts))
+	itemIDMap := make(map[string]bool, len(posts))
 	for i := range posts {
+		if itemIDMap[posts[i]] {
+			continue
+		}
+		itemIDMap[posts[i]] = true
+	}
+
+	itemIDs := make([]byte, 11*len(posts))
+	for id := range itemIDMap {
 		itemIDs = append(itemIDs, "'"...)
-		itemIDs = append(itemIDs, posts[i]...)
+		itemIDs = append(itemIDs, id...)
 		itemIDs = append(itemIDs, "',"...)
 	}
 
@@ -136,10 +144,18 @@ func FindItemByPostDateTimeGTE(unixtime, limit string) ([]entity.Item, error) {
 		return nil, err
 	}
 
-	itemIDs := make([]byte, 11*len(posts))
+	itemIDMap := make(map[string]bool, len(posts))
 	for i := range posts {
+		if itemIDMap[posts[i]] {
+			continue
+		}
+		itemIDMap[posts[i]] = true
+	}
+
+	itemIDs := make([]byte, 11*len(posts))
+	for id := range itemIDMap {
 		itemIDs = append(itemIDs, "'"...)
-		itemIDs = append(itemIDs, posts[i]...)
+		itemIDs = append(itemIDs, id...)
 		itemIDs = append(itemIDs, "',"...)
 	}
 
@@ -168,10 +184,18 @@ func FindItemByPostDateTimeLTE(unixtime, limit string) ([]entity.Item, error) {
 		return nil, err
 	}
 
-	itemIDs := make([]byte, 11*len(posts))
+	itemIDMap := make(map[string]bool, len(posts))
 	for i := range posts {
+		if itemIDMap[posts[i]] {
+			continue
+		}
+		itemIDMap[posts[i]] = true
+	}
+
+	itemIDs := make([]byte, 11*len(posts))
+	for id := range itemIDMap {
 		itemIDs = append(itemIDs, "'"...)
-		itemIDs = append(itemIDs, posts[i]...)
+		itemIDs = append(itemIDs, id...)
 		itemIDs = append(itemIDs, "',"...)
 	}
 
@@ -200,10 +224,18 @@ func FindItemByPostItemState(state, limit string) ([]entity.Item, error) {
 		return nil, err
 	}
 
-	itemIDs := make([]byte, 11*len(posts))
+	itemIDMap := make(map[string]bool, len(posts))
 	for i := range posts {
+		if itemIDMap[posts[i]] {
+			continue
+		}
+		itemIDMap[posts[i]] = true
+	}
+
+	itemIDs := make([]byte, 11*len(posts))
+	for id := range itemIDMap {
 		itemIDs = append(itemIDs, "'"...)
-		itemIDs = append(itemIDs, posts[i]...)
+		itemIDs = append(itemIDs, id...)
 		itemIDs = append(itemIDs, "',"...)
 	}
 
@@ -232,10 +264,18 @@ func FindItemByPostItemStateNotEQ(state, limit string) ([]entity.Item, error) {
 		return nil, err
 	}
 
-	itemIDs := make([]byte, 11*len(posts))
+	itemIDMap := make(map[string]bool, len(posts))
 	for i := range posts {
+		if itemIDMap[posts[i]] {
+			continue
+		}
+		itemIDMap[posts[i]] = true
+	}
+
+	itemIDs := make([]byte, 11*len(posts))
+	for id := range itemIDMap {
 		itemIDs = append(itemIDs, "'"...)
-		itemIDs = append(itemIDs, posts[i]...)
+		itemIDs = append(itemIDs, id...)
 		itemIDs = append(itemIDs, "',"...)
 	}
 

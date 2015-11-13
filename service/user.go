@@ -128,10 +128,18 @@ func FindUserByPostDateTimeGTE(unixtime, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	userIDs := make([]byte, 11*len(posts))
+	userIDMap := make(map[string]bool, len(posts))
 	for i := range posts {
+		if userIDMap[posts[i]] {
+			continue
+		}
+		userIDMap[posts[i]] = true
+	}
+
+	userIDs := make([]byte, 11*len(posts))
+	for id := range userIDMap {
 		userIDs = append(userIDs, "'"...)
-		userIDs = append(userIDs, posts[i]...)
+		userIDs = append(userIDs, id...)
 		userIDs = append(userIDs, "',"...)
 	}
 
@@ -163,22 +171,18 @@ func FindUserByPostDateTimeLTE(unixtime, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	//userIDMap := make(map[string]bool, len(posts))
-	//for i := range posts {
-	//	if userIDMap[posts[i].PostUserID] {
-	//		continue
-	//	}
-	//	userIDMap[posts[i].PostUserID] = true
-	//}
-
-	//var userIDs string
-	//for id := range userIDMap {
-	//	userIDs += `'` + id + `',`
-	//}
-	userIDs := make([]byte, 11*len(posts))
+	userIDMap := make(map[string]bool, len(posts))
 	for i := range posts {
+		if userIDMap[posts[i]] {
+			continue
+		}
+		userIDMap[posts[i]] = true
+	}
+
+	userIDs := make([]byte, 11*len(posts))
+	for id := range userIDMap {
 		userIDs = append(userIDs, "'"...)
-		userIDs = append(userIDs, posts[i]...)
+		userIDs = append(userIDs, id...)
 		userIDs = append(userIDs, "',"...)
 	}
 
@@ -210,23 +214,18 @@ func FindByPostItemID(itemID, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	//userIDMap := make(map[string]bool, len(posts))
-	//for i := range posts {
-	//	if userIDMap[posts[i].PostUserID] {
-	//		continue
-	//	}
-	//	userIDMap[posts[i].PostUserID] = true
-	//}
-
-	//var userIDs string
-	//for id := range userIDMap {
-	//	userIDs += `'` + id + `',`
-	//}
+	userIDMap := make(map[string]bool, len(posts))
+	for i := range posts {
+		if userIDMap[posts[i]] {
+			continue
+		}
+		userIDMap[posts[i]] = true
+	}
 
 	userIDs := make([]byte, 11*len(posts))
-	for i := range posts {
+	for id := range userIDMap {
 		userIDs = append(userIDs, "'"...)
-		userIDs = append(userIDs, posts[i]...)
+		userIDs = append(userIDs, id...)
 		userIDs = append(userIDs, "',"...)
 	}
 
@@ -264,23 +263,18 @@ func FindByMaxPostItemScoreGTE(score, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	//userIDMap := make(map[string]bool, len(posts))
-	//for i := range posts {
-	//	if userIDMap[posts[i].PostUserID] {
-	//		continue
-	//	}
-	//	userIDMap[posts[i].PostUserID] = true
-	//}
-
-	//var userIDs string
-	//for id := range userIDMap {
-	//	userIDs += `'` + id + `',`
-	//}
+	userIDMap := make(map[string]bool, len(posts))
+	for i := range posts {
+		if userIDMap[posts[i]] {
+			continue
+		}
+		userIDMap[posts[i]] = true
+	}
 
 	userIDs := make([]byte, 11*len(posts))
-	for i := range posts {
+	for id := range userIDMap {
 		userIDs = append(userIDs, "'"...)
-		userIDs = append(userIDs, posts[i]...)
+		userIDs = append(userIDs, id...)
 		userIDs = append(userIDs, "',"...)
 	}
 
@@ -318,23 +312,18 @@ func FindByMinPostItemScoreLTE(score, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	//userIDMap := make(map[string]bool, len(posts))
-	//for i := range posts {
-	//	if userIDMap[posts[i].PostUserID] {
-	//		continue
-	//	}
-	//	userIDMap[posts[i].PostUserID] = true
-	//}
-
-	//var userIDs string
-	//for id := range userIDMap {
-	//	userIDs += `'` + id + `',`
-	//}
+	userIDMap := make(map[string]bool, len(posts))
+	for i := range posts {
+		if userIDMap[posts[i]] {
+			continue
+		}
+		userIDMap[posts[i]] = true
+	}
 
 	userIDs := make([]byte, 11*len(posts))
-	for i := range posts {
+	for id := range userIDMap {
 		userIDs = append(userIDs, "'"...)
-		userIDs = append(userIDs, posts[i]...)
+		userIDs = append(userIDs, id...)
 		userIDs = append(userIDs, "',"...)
 	}
 
@@ -372,23 +361,18 @@ func FindByPostItemState(state, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	//userIDMap := make(map[string]bool, len(posts))
-	//for i := range posts {
-	//	if userIDMap[posts[i].PostUserID] {
-	//		continue
-	//	}
-	//	userIDMap[posts[i].PostUserID] = true
-	//}
-
-	//var userIDs string
-	//for id := range userIDMap {
-	//	userIDs += `'` + id + `',`
-	//}
+	userIDMap := make(map[string]bool, len(posts))
+	for i := range posts {
+		if userIDMap[posts[i]] {
+			continue
+		}
+		userIDMap[posts[i]] = true
+	}
 
 	userIDs := make([]byte, 11*len(posts))
-	for i := range posts {
+	for id := range userIDMap {
 		userIDs = append(userIDs, "'"...)
-		userIDs = append(userIDs, posts[i]...)
+		userIDs = append(userIDs, id...)
 		userIDs = append(userIDs, "',"...)
 	}
 
@@ -426,23 +410,18 @@ func FindByPostItemStateNotEQ(state, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	//userIDMap := make(map[string]bool, len(posts))
-	//for i := range posts {
-	//	if userIDMap[posts[i].PostUserID] {
-	//		continue
-	//	}
-	//	userIDMap[posts[i].PostUserID] = true
-	//}
-
-	//var userIDs string
-	//for id := range userIDMap {
-	//	userIDs += `'` + id + `',`
-	//}
+	userIDMap := make(map[string]bool, len(posts))
+	for i := range posts {
+		if userIDMap[posts[i]] {
+			continue
+		}
+		userIDMap[posts[i]] = true
+	}
 
 	userIDs := make([]byte, 11*len(posts))
-	for i := range posts {
+	for id := range userIDMap {
 		userIDs = append(userIDs, "'"...)
-		userIDs = append(userIDs, posts[i]...)
+		userIDs = append(userIDs, id...)
 		userIDs = append(userIDs, "',"...)
 	}
 
