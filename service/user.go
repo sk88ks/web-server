@@ -128,12 +128,14 @@ func FindByPostDateTimeGTE(unixtime, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	var userIDs string
+	userIDs := make([]byte, 11*len(posts))
 	for i := range posts {
-		userIDs += `'` + posts[i].PostUserID + `',`
+		userIDs = append(userIDs, "'"...)
+		userIDs = append(userIDs, posts[i].PostUserID...)
+		userIDs = append(userIDs, "',"...)
 	}
 
-	q = "SELECT * FROM user WHERE id IN(" + userIDs + ") ORDER BY userNo LIMIT " + limit
+	q = "SELECT * FROM user WHERE id IN(" + string(userIDs) + ") ORDER BY userNo LIMIT " + limit
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -173,13 +175,14 @@ func FindByPostDateTimeLTE(unixtime, limit string) ([]entity.User, error) {
 	//for id := range userIDMap {
 	//	userIDs += `'` + id + `',`
 	//}
-
-	var userIDs string
+	userIDs := make([]byte, 11*len(posts))
 	for i := range posts {
-		userIDs += `'` + posts[i].PostUserID + `',`
+		userIDs = append(userIDs, "'"...)
+		userIDs = append(userIDs, posts[i].PostUserID...)
+		userIDs = append(userIDs, "',"...)
 	}
 
-	q = "SELECT * FROM user WHERE id IN(" + userIDs + ") ORDER BY userNo LIMIT " + limit
+	q = "SELECT * FROM user WHERE id IN(" + string(userIDs) + ") ORDER BY userNo LIMIT " + limit
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -220,12 +223,14 @@ func FindByPostItemID(itemID, limit string) ([]entity.User, error) {
 	//	userIDs += `'` + id + `',`
 	//}
 
-	var userIDs string
+	userIDs := make([]byte, 11*len(posts))
 	for i := range posts {
-		userIDs += `'` + posts[i].PostUserID + `',`
+		userIDs = append(userIDs, "'"...)
+		userIDs = append(userIDs, posts[i].PostUserID...)
+		userIDs = append(userIDs, "',"...)
 	}
 
-	q = "SELECT * FROM user WHERE id IN(" + userIDs + ") ORDER BY userNo LIMIT " + limit
+	q = "SELECT * FROM user WHERE id IN(" + string(userIDs) + ") ORDER BY userNo LIMIT " + limit
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -272,12 +277,14 @@ func FindByMaxPostItemScoreGTE(score, limit string) ([]entity.User, error) {
 	//	userIDs += `'` + id + `',`
 	//}
 
-	var userIDs string
+	userIDs := make([]byte, 11*len(posts))
 	for i := range posts {
-		userIDs += `'` + posts[i].PostUserID + `',`
+		userIDs = append(userIDs, "'"...)
+		userIDs = append(userIDs, posts[i].PostUserID...)
+		userIDs = append(userIDs, "',"...)
 	}
 
-	q = "SELECT * FROM user WHERE id IN(" + userIDs + ") ORDER BY userNo LIMIT " + limit
+	q = "SELECT * FROM user WHERE id IN(" + string(userIDs) + ") ORDER BY userNo LIMIT " + limit
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -324,12 +331,14 @@ func FindByMinPostItemScoreLTE(score, limit string) ([]entity.User, error) {
 	//	userIDs += `'` + id + `',`
 	//}
 
-	var userIDs string
+	userIDs := make([]byte, 11*len(posts))
 	for i := range posts {
-		userIDs += `'` + posts[i].PostUserID + `',`
+		userIDs = append(userIDs, "'"...)
+		userIDs = append(userIDs, posts[i].PostUserID...)
+		userIDs = append(userIDs, "',"...)
 	}
 
-	q = "SELECT * FROM user WHERE id IN(" + userIDs + ") ORDER BY userNo LIMIT " + limit
+	q = "SELECT * FROM user WHERE id IN(" + string(userIDs) + ") ORDER BY userNo LIMIT " + limit
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -376,12 +385,14 @@ func FindByPostItemState(state, limit string) ([]entity.User, error) {
 	//	userIDs += `'` + id + `',`
 	//}
 
-	var userIDs string
+	userIDs := make([]byte, 11*len(posts))
 	for i := range posts {
-		userIDs += `'` + posts[i].PostUserID + `',`
+		userIDs = append(userIDs, "'"...)
+		userIDs = append(userIDs, posts[i].PostUserID...)
+		userIDs = append(userIDs, "',"...)
 	}
 
-	q = "SELECT * FROM user WHERE id IN(" + userIDs + ") ORDER BY userNo LIMIT " + limit
+	q = "SELECT * FROM user WHERE id IN(" + string(userIDs) + ") ORDER BY userNo LIMIT " + limit
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -428,12 +439,14 @@ func FindByPostItemStateNotEQ(state, limit string) ([]entity.User, error) {
 	//	userIDs += `'` + id + `',`
 	//}
 
-	var userIDs string
+	userIDs := make([]byte, 11*len(posts))
 	for i := range posts {
-		userIDs += `'` + posts[i].PostUserID + `',`
+		userIDs = append(userIDs, "'"...)
+		userIDs = append(userIDs, posts[i].PostUserID...)
+		userIDs = append(userIDs, "',"...)
 	}
 
-	q = "SELECT * FROM user WHERE id IN(" + userIDs + ") ORDER BY userNo LIMIT " + limit
+	q = "SELECT * FROM user WHERE id IN(" + string(userIDs) + ") ORDER BY userNo LIMIT " + limit
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
 		return nil, err
