@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>ユーザー: {{width .Self}}{{.UserId | html}}{{end}}のページ</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/primer/2.4.0/primer.css"> -->
+    <link href='/css/css_family_Raleway500.css' rel='stylesheet'>
+    <style>
+        .app {
+            color: #333;
+        }
+        .logo {
+            font-family: 'Raleway', sans-serif;
+        }
+    </style>
+    <script src="/js/jquery-2.1.4.js"></script>
+    <script src="/js/bootstrap.js"></script>
+</head>
+<body>
+<div class="app">
+
+    <!-- Navbar content -->
+    <nav class="navbar navbar-light logo" style="background-color: #e3f2fd;">
+        Amezon.com
+    </nav>
+
+    <!-- breadcrumb -->
+    <ol class="breadcrumb" style="background-color: rgba(1, 1, 1, .05);">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Users</a></li>
+        <li class="active">{{width .Self}}{{.UserId | html}}{{end}}</li>
+    </ol>
+
+    <!-- container -->
+    <div class="container">
+
+        <!-- User Info -->
+        {{width .Self}}
+            <div class="row p-a-md">
+                <div class="text-center col-xs-6">
+                    <img src="/img/user/{{.UserImage | html}}" class="img-circle" width="100" height="100" alt="{{.UserId | html}}のサムネイル画像">
+                </div>
+                <div class="col-xs-6">
+                    <p>{{.UserId | html}}</p>
+                    <p>スコア: {{.UserPublicScore}}</p>
+                </div>
+            </div>
+            <div class="m-b-md">
+                <button type="button" class="btn btn-primary-outline btn-lg btn-block">フレンド申請する</button>
+            </div>
+        {{end}}
+    </div>
+
+    <!-- Friends -->
+    <div class="friends">
+        <h5 class="p-a">フレンド <span class="label label-pill label-default">4</span></h5>
+        <div class="list-group">
+            {{with .UserFriends}}
+                {{range .}}
+                    <button type="button" class="list-group-item">
+                        <a href="#" style="color: #333;">
+                            <img src="/img/user/{{.UserImage | html}}" alt="{{.UserId | html}}のサムネイル画像" class="img-circle m-r" width="24" height="24">{{.UserId | html}}
+                        </a>
+                    </button>
+                {{end}}
+            {{end}}
+            {{if .HasNext}}
+                <button type="button" class="list-group-item">
+                    <div class="text-right">
+                        <a href="#">もっと見る</a>
+                    </div>
+                </button>
+            {{end}}
+        </div>
+    </div>
+
+    <!-- Reccomended Items -->
+    {{if .HasRecommendItems}}
+        <div class="items">
+            <h5 class="p-a">このユーザーのおすすめ商品</h5>
+            <div class="row p-l p-r m-r-0">
+                {{with .RecommendItems}}
+                    {{range .}}
+                        <div class="col-xs-3 p-a-0 p-b text-center">
+                            <img src="/img/item/{{.ItemImage | html}}" alt="商品{{.ItemId | html}}のサムネイル画像" class="img-rounded" width="48" height="48">
+                        </div>
+                    {{end}}
+                {{end}}
+            </div>
+        </div>
+    {{end}}
+
+    <!-- Recent Posts -->
+    {{if .HasReviewItems}}
+        <div class="posts">
+            <h5 class="p-a">最近投稿されたレビュー</h5>
+            <div class="row p-l p-r">
+                {{with .ReviewItems}}
+                    {{range .}}
+                        <div class="col-xs-3 p-a-0 p-b text-center">
+                            <img src="/img/item/{{.ItemImage | html}}" alt="商品{{.ItemId | html}}のサムネイル画像" class="img-rounded" width="48" height="48">
+                        </div>
+                    {{end}}
+                {{end}}
+            </div>
+        </div>
+    {{end}}
+
+    <nav class="navbar navbar-light bg-inverse">
+        &copy; 2015 Amezon.com
+    </nav>
+
+</div>
+
+</body>
+</html>
