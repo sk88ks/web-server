@@ -71,6 +71,7 @@ func (m *MySQL) open() error {
 	}
 
 	m.db = db
+	m.isConnected = true
 	return nil
 }
 
