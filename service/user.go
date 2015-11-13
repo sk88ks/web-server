@@ -128,17 +128,9 @@ func FindByPostDateTimeGTE(unixtime, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	userIDMap := make(map[string]bool, len(posts))
-	for i := range posts {
-		if userIDMap[posts[i].PostUserID] {
-			continue
-		}
-		userIDMap[posts[i].PostUserID] = true
-	}
-
 	var userIDs string
-	for id := range userIDMap {
-		userIDs += `'` + id + `',`
+	for i := range posts {
+		userIDs += `'` + posts[i].PostUserID + `',`
 	}
 
 	q = "SELECT * FROM user WHERE id IN(" + userIDs + ") ORDER BY userNo LIMIT " + limit
@@ -169,17 +161,22 @@ func FindByPostDateTimeLTE(unixtime, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	userIDMap := make(map[string]bool, len(posts))
-	for i := range posts {
-		if userIDMap[posts[i].PostUserID] {
-			continue
-		}
-		userIDMap[posts[i].PostUserID] = true
-	}
+	//userIDMap := make(map[string]bool, len(posts))
+	//for i := range posts {
+	//	if userIDMap[posts[i].PostUserID] {
+	//		continue
+	//	}
+	//	userIDMap[posts[i].PostUserID] = true
+	//}
+
+	//var userIDs string
+	//for id := range userIDMap {
+	//	userIDs += `'` + id + `',`
+	//}
 
 	var userIDs string
-	for id := range userIDMap {
-		userIDs += `'` + id + `',`
+	for i := range posts {
+		userIDs += `'` + posts[i].PostUserID + `',`
 	}
 
 	q = "SELECT * FROM user WHERE id IN(" + userIDs + ") ORDER BY userNo LIMIT " + limit
@@ -210,17 +207,22 @@ func FindByPostItemID(itemID, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	userIDMap := make(map[string]bool, len(posts))
-	for i := range posts {
-		if userIDMap[posts[i].PostUserID] {
-			continue
-		}
-		userIDMap[posts[i].PostUserID] = true
-	}
+	//userIDMap := make(map[string]bool, len(posts))
+	//for i := range posts {
+	//	if userIDMap[posts[i].PostUserID] {
+	//		continue
+	//	}
+	//	userIDMap[posts[i].PostUserID] = true
+	//}
+
+	//var userIDs string
+	//for id := range userIDMap {
+	//	userIDs += `'` + id + `',`
+	//}
 
 	var userIDs string
-	for id := range userIDMap {
-		userIDs += `'` + id + `',`
+	for i := range posts {
+		userIDs += `'` + posts[i].PostUserID + `',`
 	}
 
 	q = "SELECT * FROM user WHERE id IN(" + userIDs + ") ORDER BY userNo LIMIT " + limit
@@ -257,17 +259,22 @@ func FindByMaxPostItemScoreGTE(score, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	userIDMap := make(map[string]bool, len(posts))
-	for i := range posts {
-		if userIDMap[posts[i].PostUserID] {
-			continue
-		}
-		userIDMap[posts[i].PostUserID] = true
-	}
+	//userIDMap := make(map[string]bool, len(posts))
+	//for i := range posts {
+	//	if userIDMap[posts[i].PostUserID] {
+	//		continue
+	//	}
+	//	userIDMap[posts[i].PostUserID] = true
+	//}
+
+	//var userIDs string
+	//for id := range userIDMap {
+	//	userIDs += `'` + id + `',`
+	//}
 
 	var userIDs string
-	for id := range userIDMap {
-		userIDs += `'` + id + `',`
+	for i := range posts {
+		userIDs += `'` + posts[i].PostUserID + `',`
 	}
 
 	q = "SELECT * FROM user WHERE id IN(" + userIDs + ") ORDER BY userNo LIMIT " + limit
@@ -304,17 +311,22 @@ func FindByMinPostItemScoreLTE(score, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	userIDMap := make(map[string]bool, len(posts))
-	for i := range posts {
-		if userIDMap[posts[i].PostUserID] {
-			continue
-		}
-		userIDMap[posts[i].PostUserID] = true
-	}
+	//userIDMap := make(map[string]bool, len(posts))
+	//for i := range posts {
+	//	if userIDMap[posts[i].PostUserID] {
+	//		continue
+	//	}
+	//	userIDMap[posts[i].PostUserID] = true
+	//}
+
+	//var userIDs string
+	//for id := range userIDMap {
+	//	userIDs += `'` + id + `',`
+	//}
 
 	var userIDs string
-	for id := range userIDMap {
-		userIDs += `'` + id + `',`
+	for i := range posts {
+		userIDs += `'` + posts[i].PostUserID + `',`
 	}
 
 	q = "SELECT * FROM user WHERE id IN(" + userIDs + ") ORDER BY userNo LIMIT " + limit
@@ -351,17 +363,22 @@ func FindByPostItemState(state, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	userIDMap := make(map[string]bool, len(posts))
-	for i := range posts {
-		if userIDMap[posts[i].PostUserID] {
-			continue
-		}
-		userIDMap[posts[i].PostUserID] = true
-	}
+	//userIDMap := make(map[string]bool, len(posts))
+	//for i := range posts {
+	//	if userIDMap[posts[i].PostUserID] {
+	//		continue
+	//	}
+	//	userIDMap[posts[i].PostUserID] = true
+	//}
+
+	//var userIDs string
+	//for id := range userIDMap {
+	//	userIDs += `'` + id + `',`
+	//}
 
 	var userIDs string
-	for id := range userIDMap {
-		userIDs += `'` + id + `',`
+	for i := range posts {
+		userIDs += `'` + posts[i].PostUserID + `',`
 	}
 
 	q = "SELECT * FROM user WHERE id IN(" + userIDs + ") ORDER BY userNo LIMIT " + limit
@@ -398,17 +415,22 @@ func FindByPostItemStateNotEQ(state, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	userIDMap := make(map[string]bool, len(posts))
-	for i := range posts {
-		if userIDMap[posts[i].PostUserID] {
-			continue
-		}
-		userIDMap[posts[i].PostUserID] = true
-	}
+	//userIDMap := make(map[string]bool, len(posts))
+	//for i := range posts {
+	//	if userIDMap[posts[i].PostUserID] {
+	//		continue
+	//	}
+	//	userIDMap[posts[i].PostUserID] = true
+	//}
+
+	//var userIDs string
+	//for id := range userIDMap {
+	//	userIDs += `'` + id + `',`
+	//}
 
 	var userIDs string
-	for id := range userIDMap {
-		userIDs += `'` + id + `',`
+	for i := range posts {
+		userIDs += `'` + posts[i].PostUserID + `',`
 	}
 
 	q = "SELECT * FROM user WHERE id IN(" + userIDs + ") ORDER BY userNo LIMIT " + limit
