@@ -15,7 +15,7 @@ func FindByUserID(userID, limit string) ([]entity.User, error) {
 		limit = "100"
 	}
 
-	q := "SELECT * FROM user WHERE id = " + userID + "ORDER BY userNo LIMIT " + limit
+	q := "SELECT * FROM user WHERE id = " + userID + " ORDER BY userNo LIMIT " + limit
 
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
@@ -30,7 +30,7 @@ func FindByUserPublicScoreGTE(num, limit string) ([]entity.User, error) {
 		limit = "100"
 	}
 
-	q := "SELECT * FROM user WHERE userPublicScore >= " + num + "ORDER BY userNo LIMIT " + limit
+	q := "SELECT * FROM user WHERE userPublicScore >= " + num + " ORDER BY userNo LIMIT " + limit
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -44,7 +44,7 @@ func FindByUserPublicScoreLTE(num, limit string) ([]entity.User, error) {
 		limit = "100"
 	}
 
-	q := "SELECT * FROM user WHERE userPublicScore <= " + num + "ORDER BY userNo LIMIT " + limit
+	q := "SELECT * FROM user WHERE userPublicScore <= " + num + " ORDER BY userNo LIMIT " + limit
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -58,7 +58,7 @@ func FindByUserFriendsNumberGTE(num, limit string) ([]entity.User, error) {
 		limit = "100"
 	}
 
-	q := "SELECT * FROM user WHERE friendsNum >= " + num + "ORDER BY userNo LIMIT " + limit
+	q := "SELECT * FROM user WHERE friendsNum >= " + num + " ORDER BY userNo LIMIT " + limit
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -72,7 +72,7 @@ func FindByUserFriendsNumberLTE(num, limit string) ([]entity.User, error) {
 		limit = "100"
 	}
 
-	q := "SELECT * FROM user WHERE friendsNum <= " + num + "ORDER BY userNo LIMIT " + limit
+	q := "SELECT * FROM user WHERE friendsNum <= " + num + " ORDER BY userNo LIMIT " + limit
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -100,7 +100,7 @@ func FindByPostID(postID, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	q = "SELECT * FROM user WHERE id =" + posts[0].PostUserID + "ORDER BY userNo LIMIT " + limit
+	q = "SELECT * FROM user WHERE id =" + posts[0].PostUserID + " ORDER BY userNo LIMIT " + limit
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
 		return nil, err
