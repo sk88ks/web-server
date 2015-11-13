@@ -8,7 +8,7 @@ import (
 
 var itemQueryStrings = []QueryFunc{
 	{Type: "findByItemId", Func: findByItemID},
-	{Type: "findBySupplier", Func: findBySupplier},
+	{Type: "findByItemSupplier", Func: findBySupplier},
 	{Type: "findByItemSoldQuantityGTE", Func: findByItemSoldQuantityGTE},
 	{Type: "findByItemSoldQuantityLTE", Func: findByItemSoldQuantityLTE},
 	{Type: "findByItemSalePriceGTE", Func: findByItemSalePriceGTE},
