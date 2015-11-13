@@ -15,7 +15,7 @@ func FindByUserID(userID, limit string) ([]entity.User, error) {
 		limit = "100"
 	}
 
-	q := "SELECT * FROM user WHERE userId = " + userID + "ORDER BY userNo LIMIT " + limit
+	q := "SELECT * FROM user WHERE id = " + userID + "ORDER BY userNo LIMIT " + limit
 
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
@@ -100,7 +100,7 @@ func FindByPostID(postID, limit string) ([]entity.User, error) {
 		return nil, nil
 	}
 
-	q = "SELECT * FROM user WHERE userId =" + posts[0].PostUserID + "ORDER BY userNo LIMIT " + limit
+	q = "SELECT * FROM user WHERE id =" + posts[0].PostUserID + "ORDER BY userNo LIMIT " + limit
 	users, err := datastore.UserQueryWithCache(q)
 	if err != nil {
 		return nil, err
@@ -114,27 +114,27 @@ func FindByPostID(postID, limit string) ([]entity.User, error) {
 }
 
 func findByPostDateTimeGTE(c *gin.Context, unixtime, limit string) {
-	// 	if limit == "" {
-	//		limit = "100"
-	//	}
+	//if limit == "" {
+	//	limit = "100"
+	//}
 	//
-	//	q := "SELECT * FROM post WHERE postDatetime >= " + unixtime
-	//	posts, err := datastore.PostQueryWithCache(q)
-	//	if err != nil {
-	//		return nil, err
-	//	}
+	//q := "SELECT * FROM post WHERE postDatetime >= " + unixtime
+	//posts, err := datastore.PostQueryWithCache(q)
+	//if err != nil {
+	//	return nil, err
+	//}
 	//
-	//	if len(posts) == 0 {
-	//		return nil, nil
-	//	}
+	//if len(posts) == 0 {
+	//	return nil, nil
+	//}
 	//
-	//	var userIDs string
-	//	for i := range posts {
-	//		userIDs += posts[i].PostUserID + ","
-	//	}
-	//
-	//
-	//
+	//var userIDs string
+	//for i := range posts {
+	//	userIDs += posts[i].PostUserID + ","
+	//}
+
+	//q = "SELECT * FROM user WHERE id"
+
 }
 
 func findByPostDateTimeLTE(c *gin.Context, unixtime, limit string) {
