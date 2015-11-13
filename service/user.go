@@ -113,7 +113,7 @@ func FindByPostID(postID, limit string) ([]entity.User, error) {
 	return users, nil
 }
 
-func FindByPostDateTimeGTE(unixtime, limit string) ([]entity.User, error) {
+func FindUserByPostDateTimeGTE(unixtime, limit string) ([]entity.User, error) {
 	if limit == "" {
 		limit = "100"
 	}
@@ -148,7 +148,7 @@ func FindByPostDateTimeGTE(unixtime, limit string) ([]entity.User, error) {
 	return users, nil
 }
 
-func FindByPostDateTimeLTE(unixtime, limit string) ([]entity.User, error) {
+func FindUserByPostDateTimeLTE(unixtime, limit string) ([]entity.User, error) {
 	if limit == "" {
 		limit = "100"
 	}

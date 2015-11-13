@@ -112,14 +112,6 @@ func FindItemByPostID(postID, limit string) ([]entity.Item, error) {
 		itemIDs = append(itemIDs, "',"...)
 	}
 
-	itemIDMap := make(map[string]bool, len(posts))
-	for i := range posts {
-		if itemIDMap[posts[i]] {
-			continue
-		}
-		itemIDMap[posts[i]] = true
-	}
-
 	q = "SELECT * FROM item WHERE id IN(" + string(itemIDs) + ") ORDER BY userNo LIMIT " + limit
 	items, err := datastore.ItemQueryWithCache(q)
 	if err != nil {
@@ -133,40 +125,66 @@ func FindItemByPostID(postID, limit string) ([]entity.Item, error) {
 	return items, nil
 }
 
-//func FindByPostDateTimeGTE(unixtime, limit string) ([]entity.Item, error) {
-//	if limit == "" {
-//		limit = "100"
-//	}
-//
-//	q := "SELECT * FROM post WHERE id = '" + postID + "'"
-//	posts, err := datastore.PostQueryWithCache(q)
-//	if err != nil {
-//		return nil, err
-//	}
-//
-//	itemIDMap := make(map[string]bool, len(posts))
-//	for i := range posts {
-//		if itemIDMap[posts[i].PostItemID] {
-//			continue
-//		}
-//		itemIDMap[posts[i].PostItemID] = true
-//	}
-//
-//	var itemIDs string
-//	for id := range itemIDMap {
-//		itemIDs += `'` + id + `',`
-//	}
-//
-//	q = "SELECT * FROM item WHERE id IN(" + itemIDs + ") ORDER BY userNo LIMIT " + limit
-//	items, err := datastore.ItemQueryWithCache(q)
-//	if err != nil {
-//		return nil, err
-//	}
-//
-//	if len(items) == 0 {
-//		return nil, nil
-//	}
-//
-//	return items, nil
-//
-//}
+func FindItemByPostDateTimeGTE(unixtime, limit string) ([]entity.Item, error) {
+	if limit == "" {
+		limit = "100"
+	}
+
+	q := "SELECT postItemId FROM post4 WHERE postDateTime >= " + unixtime
+	posts, err := datastore.PostQueryForItemID(q)
+	if err != nil {
+		return nil, err
+	}
+
+	itemIDs := make([]byte, 11*len(posts))
+	for i := range posts {
+		itemIDs = append(itemIDs, "'"...)
+		itemIDs = append(itemIDs, posts[i]...)
+		itemIDs = append(itemIDs, "',"...)
+	}
+
+	q = "SELECT * FROM item WHERE id IN(" + string(itemIDs) + ") ORDER BY userNo LIMIT " + limit
+	items, err := datastore.ItemQueryWithCache(q)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(items) == 0 {
+		return nil, nil
+	}
+
+	return items, nil
+
+}
+
+func FindItemByPostDateTimeLTE(unixtime, limit string) ([]entity.Item, error) {
+	if limit == "" {
+		limit = "100"
+	}
+
+	q := "SELECT postItemId FROM post4 WHERE postDateTime <= " + unixtime
+	posts, err := datastore.PostQueryForItemID(q)
+	if err != nil {
+		return nil, err
+	}
+
+	itemIDs := make([]byte, 11*len(posts))
+	for i := range posts {
+		itemIDs = append(itemIDs, "'"...)
+		itemIDs = append(itemIDs, posts[i]...)
+		itemIDs = append(itemIDs, "',"...)
+	}
+
+	q = "SELECT * FROM item WHERE id IN(" + string(itemIDs) + ") ORDER BY userNo LIMIT " + limit
+	items, err := datastore.ItemQueryWithCache(q)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(items) == 0 {
+		return nil, nil
+	}
+
+	return items, nil
+
+}
